@@ -5,7 +5,7 @@
     "start": "gulp",
     "clean": "gulp clean",
     "test": "standard",
-    "deploy": "standard && gulp && git add dist && git commit -m \"dist\" && git subtree split --prefix dist -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages && git reset --hard HEAD~1 && gulp clean"
+    "deploy": "standard && gulp && git add dist && git commit -m \"dist\" && git subtree split --prefix dist -b master && git push -f origin master:master && git branch -D master && git reset --hard HEAD~1 && gulp clean"
   },
   "devDependencies": {
     "arr-union": "latest",
