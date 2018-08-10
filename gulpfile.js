@@ -101,6 +101,7 @@ const data = {
 
 const global = done => {
   data.global = YAML.parse(fs.readFileSync('src/global.yaml').toString())
+  fs.writeFileSync('dist/CNAME', data.global.url.replace(/(^\w+:|^)\/\//, ''))
   done()
 }
 
