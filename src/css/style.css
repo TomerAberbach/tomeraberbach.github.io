@@ -120,7 +120,7 @@ a, a:link, a:visited {
 .tags-ul > li > a {
     color: #2A2D34;
     border-radius: 500px;
-    transition-pdisplayroperty: transform, color;
+    transition-property: transform, color;
 }
 
 .tags-ul > li > a:hover {
