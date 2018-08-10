@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+        <title>{{sanitize title}} | {{titleize (sanitize subtitle)}}</title>
+
+        <meta name="author" content="{{author}}"/>
+        <meta name="creator" content="{{author}}"/>
+        <meta name="description" content="{{sanitize description}}"/>
+        <meta name="keywords" content="{{join tags ','}}"/>
+
+        <meta itemprop="name" content="{{sanitize title}} | {{sanitize subtitle}}"/>
+        <meta itemprop="description" content="{{sanitize description}}"/>
+        <meta itemprop="image" content="{{url}}/img/icon.png"/>
+
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:site" content="@{{replace author ' ' ''}}"/>
+        <meta name="twitter:title" content="{{sanitize title}} | {{sanitize subtitle}}"/>
+        <meta name="twitter:description" content="{{sanitize description}}"/>
+        <meta name="twitter:creator" content="@{{replace author ' ' ''}}"/>
+        <meta name="twitter:image" content="{{url}}/img/icon.png"/>
+        <meta name="twitter:image:src" content="{{url}}/img/icon.png"/>
+
+        <meta property="og:title" content="{{sanitize title}} | {{sanitize subtitle}}"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="{{url}}/{{@file.relative}}"/>
+        <meta property="og:image" content="{{url}}/img/icon.png"/>
+        <meta property="og:description" content="{{sanitize description}}"/>
+        <meta property="og:site_name" content="{{sanitize title}} | {{sanitize subtitle}}"/>
+
+        {{#each css}}
+            <link rel="stylesheet" href="{{relative @file.relative this}}"/>
+        {{/each}}
+    </head>
+    <body>
+        <header id="site-header">
+            <h1>
+                <a href="{{relative @file.relative 'index.html'}}">
+                    {{downcase author}}
+                </a>
+            </h1>
+
+            {{#each social}}
+                <a href="{{this}}" target="_blank" rel="noopener">
+                    {{{lookup @root.svg @key}}}
+                </a>
+            {{/each}}
+        </header>
+
+        <main>
+            {{{content}}}
+        </main>
+
+        <footer id="site-footer">
+            <span id="newer-span" {{#lte i 0}}style="visibility: hidden;"{{/lte}}><a href="{{relative @file.relative page}}/{{i}}.html">Newer</a></span>
+            <div>
+                <div id="tags-div"><a href="{{relative @file.relative 'html/tag/tags.html'}}">Tags</a></div>
+                <a href="{{relative @file.relative 'index.html'}}">
+                    <img src="{{relative @file.relative 'img/icon.png'}}"/>
+                </a>
+                <div {{#lte total 0}}style="visibility: hidden;"{{/lte}}>Page {{add i 1}} of {{total}}</div>
+            </div>
+
+            <span id="older-span" {{#gte i (minus total 1)}}style="visibility: hidden;"{{/gte}}><a href="{{relative @file.relative page}}/{{add i 2}}.html">Older</a></span>
+        </footer>
+
+        {{#each js}}
+            <script type="text/javascript" src="{{relative @file.relative this}}"></script>
+        {{/each}}
+    </body>
+</html>

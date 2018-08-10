@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono');
+
+html {
+    font-family: 'Ubuntu', sans-serif;
+    min-height: 101%;
+}
+
+body {
+    margin: 0 auto;
+}
+
+main {
+    width: 75%;
+    margin: 0 auto;
+}
+
+blockquote {
+    color: gray;
+    padding-left: 30px;
+    border-left: 5px solid lightgray;
+    margin-left: 0;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+#site-header {
+    display: grid;
+    grid-template-columns: 4fr repeat(6, 1fr);
+    align-items: center;
+    z-index: 1;
+    background-color: #0FACF3;
+    width: 100%;
+}
+
+#site-header > h1 {
+    position: relative;
+    font-family: 'Ubuntu Mono', serif;
+    font-size: 4vw;
+    color: #2A2D34;
+    text-align: center;
+    padding: 0 1vw;
+    margin: 0 auto;
+    transition-property: transform, color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+}
+
+#site-header > h1:hover {
+    transform: scale(1.15);
+    color: black;
+    cursor: pointer;
+}
+
+#site-header > a {
+    padding: 2vw;
+    transform-origin: top center;
+    transition-property: transform, fill;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+}
+
+#site-header > a:nth-child(3n + 2) {
+    background-color: #FABC3C;
+    fill: #2A2D34;
+}
+
+#site-header > a:nth-child(3n + 3) {
+    background-color: #F26430;
+    fill: #2A2D34;
+}
+
+#site-header > a:nth-child(3n + 4) {
+    background-color: #FB9B2B;
+    fill: #2A2D34;
+}
+
+#site-header > a:last-child {
+    transform-origin: top right;
+}
+
+#site-header > a:hover {
+    transform: scale(1.15);
+    fill: black;
+}
+
+.tags-ul, .links-ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0 10px;
+}
+
+.tags-ul > li > a, .links-ul > li > a {
+    display: block;
+    padding: 10px;
+    margin: 5px;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+}
+
+.tags-ul > li:nth-child(3n + 1) > a, .links-ul > li:nth-child(3n + 1) > a {
+    background-color: #FABC3C;
+}
+
+.tags-ul > li:nth-child(3n + 2) > a, .links-ul > li:nth-child(3n + 2) > a {
+    background-color: #FB9B2B;
+}
+
+.tags-ul > li:nth-child(3n + 3) > a, .links-ul > li:nth-child(3n + 3) > a {
+    background-color: #F26430;
+}
+
+.tags-ul > li > a:hover, .links-ul > li > a:hover {
+    transform: scale(1.15);
+}
+
+.tags-ul > li > a {
+    color: #2A2D34;
+    border-radius: 500px;
+    transition-pdisplayroperty: transform, color;
+}
+
+.tags-ul > li > a:hover {
+    color: black;
+}
+
+.links-ul {
+    list-style: none;
+}
+
+.links-ul > li > a {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition-property: transform;
+}
+
+.links-ul > li > a > svg {
+    fill: #2A2D34;
+    width: 100%;
+    transition: fill ease-in-out 0.3s;
+}
+
+.links-ul > li:hover > a > svg {
+    fill: black;
+}
+
+#newer-span, #older-span, #tags-div {
+    font-size: 16pt;
+    color: #F26430;
+    transition-property: transform, color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.3s;
+}
+
+#newer-span:hover, #older-span:hover, #tags-div:hover {
+    transform: scale(1.15);
+    color: #FABC3C;
+}
+
+#site-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 0;
+}
+
+#site-footer > div {
+    display: inline-block;
+    text-align: center;
+    margin: 0 20px;
+}
+
+#site-footer img {
+    width: 70px;
+    height: 70px;
+    margin: 30px 0 10px 0;
+    transition: transform ease-in-out 0.3s;
+}
+
+#site-footer img:hover {
+    transform: scale(1.15);
+}
+
+@media (max-width: 800px) {
+    main {
+        width: 100%;
+    }
+
+    #site-header {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    #site-header > h1 {
+        font-size: 8vw;
+        grid-column: 1 / 8;
+        padding: 15px;
+    }
+
+    #site-header > a:nth-child(2) {
+        transform-origin: top left;
+    }
+
+    .tags-ul {
+        padding: 10px 0 0 0;
+    }
+
+    .links-ul {
+        padding: 0;
+    }
+}

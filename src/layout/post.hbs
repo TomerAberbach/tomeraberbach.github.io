@@ -1,0 +1,21 @@
+<article>
+    <h1>{{{title}}}</h1>
+
+    <ul class="tags-ul">
+        {{#each tags}}
+            <li>
+                <a href="{{relative @file.relative 'html/tag'}}/{{this}}/1.html">{{this}}</a>
+            </li>
+        {{/each}}
+    </ul>
+
+    <ul class="links-ul">
+        {{#each links}}
+            <li>
+                <a href="{{this}}" target="_blank" rel="noopener">{{{lookup @root.svg @key}}}</a>
+            </li>
+        {{/each}}
+    </ul>
+
+    {{{content}}}
+</article>

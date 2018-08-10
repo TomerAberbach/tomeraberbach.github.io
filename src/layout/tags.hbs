@@ -1,0 +1,7 @@
+<ul class="tags-ul">
+    {{#each tags}}
+        <li>
+            <a href="{{relative @file.relative 'html/tag'}}/{{this}}/1.html">{{this}}</a>
+        </li>
+    {{/each}}
+</ul>
