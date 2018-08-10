@@ -17,7 +17,7 @@ tags:
 - portfolio
 - git
 links:
-  github: https://github.com/TomerAberbach/tomeraberbach-site-generator
+  github: https://github.com/TomerAberbach/tomeraberbach.github.io
   website: https://tomeraberba.ch
 timestamp: 05/20/2018
 ---

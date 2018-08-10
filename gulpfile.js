@@ -1,6 +1,6 @@
 // File System
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const del = require('del')
 const glob = require('glob')
 
@@ -226,7 +226,10 @@ const favicons = cb => favicon.generateFavicon({
     usePathAsIs: false
   },
   markupFile: 'favicon.json'
-}, cb)
+}, () => {
+  fs.copySync('dist/favicon/favicon.ico', 'dist/favicon.ico')
+  cb()
+})
 
 const html = () =>
   gulp.src('src/post/*/post.md')
