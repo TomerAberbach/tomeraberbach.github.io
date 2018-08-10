@@ -1,6 +1,6 @@
 // File System
 const path = require('path')
-const fs = require('fs-extra')
+const fs = require('fs')
 const del = require('del')
 const glob = require('glob')
 
@@ -172,7 +172,7 @@ const other = () => gulp.src('src/other/**/*').pipe(gulp.dest('dist/other'))
 const favicons = cb => favicon.generateFavicon({
   masterPicture: 'src/img/icon.png',
   dest: 'dist/favicon',
-  iconsPath: 'favicon/',
+  iconsPath: '/favicon',
   design: {
     ios: {
       pictureAspect: 'backgroundAndMargin',
@@ -227,10 +227,7 @@ const favicons = cb => favicon.generateFavicon({
     usePathAsIs: false
   },
   markupFile: 'favicon.json'
-}, () => {
-  fs.copySync('dist/favicon/favicon.ico', 'dist/favicon.ico')
-  cb()
-})
+}, cb)
 
 const html = () =>
   gulp.src('src/post/*/post.md')

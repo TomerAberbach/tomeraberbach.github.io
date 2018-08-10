@@ -45,8 +45,5 @@
     "through2": "latest",
     "vinyl": "^2.2.0",
     "yaml": "^1.0.0-rc.7"
-  },
-  "dependencies": {
-    "fs-extra": "^7.0.0"
   }
 }
