@@ -67,7 +67,7 @@ Parameters:
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/get-all-files) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/get-all-files/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/get-all-files) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/get-all-files/issues/new).
 
 ## Running Tests
 

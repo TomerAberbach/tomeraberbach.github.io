@@ -88,7 +88,7 @@ Documentation for the all the functions can be found [here](https://tomeraberba.
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/my-groupme-bot) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/my-groupme-bot/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/my-groupme-bot) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/my-groupme-bot/issues/new).
 
 ## Running Tests
 

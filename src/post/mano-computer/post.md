@@ -36,7 +36,7 @@ java -jar mano-simulator.jar
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/mano-simulator) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/mano-simulator/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/mano-simulator) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/mano-simulator/issues/new).
 
 ## License
 

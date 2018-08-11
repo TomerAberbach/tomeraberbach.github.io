@@ -63,7 +63,7 @@ auth.token().then(([token, refresh]) => {
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/spotify-personal-auth) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/spotify-personal-auth/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/spotify-personal-auth) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/spotify-personal-auth/issues/new).
 
 ## Running Tests
 

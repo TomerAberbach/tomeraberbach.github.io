@@ -55,7 +55,7 @@ The following HTML displays playable chords:
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/piano) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/piano/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/piano) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/piano/issues/new).
 
 ## License
 

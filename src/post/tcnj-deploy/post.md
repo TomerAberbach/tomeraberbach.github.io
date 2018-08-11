@@ -71,7 +71,7 @@ fi
 
 ## Contributing
 
-Pull requests and stars on the [Github repository](https://github.com/TomerAberbach/tcnj-deploy) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/tcnj-deploy/issues/new).
+Pull requests and stars on the [GitHub repository](https://github.com/TomerAberbach/tcnj-deploy) are always welcome. For bugs and feature requests, [please create an issue](https://github.com/TomerAberbach/tcnj-deploy/issues/new).
 
 ## License
 
