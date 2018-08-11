@@ -10,7 +10,9 @@ tags:
 - video
 - musictheory
 - audio
+- ableton
+- adobepremiere
 links:
   vimeo: https://vimeo.com/223765818
-timestamp: 06/30/2017
+timestamp: 05/01/2017
 ---
