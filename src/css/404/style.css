@@ -1,0 +1,35 @@
+main {
+    text-align: center;
+}
+
+main p a, main p a:link, main p a:visited {
+    color: #F26430;
+    transition: color ease-in-out 0.3s;
+}
+
+main p a:hover, main p a:link:hover, main p a:visited:hover {
+    color: #FABC3C;
+}
+
+h1 {
+    margin: 40px;
+}
+
+p {
+    font-size: 20pt;
+}
+
+#big {
+    font-size: 180pt;
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+    p {
+        font-size: 15pt;
+    }
+
+    #big {
+        font-size: 130pt;
+    }
+}

@@ -157,6 +157,7 @@ const included = (ext, optimize) => () =>
       })),
     gulp.src(`src/${ext}/**/*.${ext}`)
       .pipe(groupConcat({
+        '404': `src/${ext}/404/*.${ext}`,
         'page': `src/${ext}/page/*.${ext}`,
         'post': `src/${ext}/post/*.${ext}`,
         'tags': `src/${ext}/tags/*.${ext}`,
@@ -389,17 +390,29 @@ const html = () => {
         data.tags = Object.keys(data.tags).sort((a, b) => a.localeCompare(b))
 
         return merge(
-          intoStream.obj(new File({
-            path: 'html/tag/tags.html',
-            contents: fs.readFileSync('src/layout/tags.hbs'),
-            data: {
-              title: 'Tags',
-              tags: data.tags,
-              js: ['all', 'tags'].filter(a => data['js'][a]).map(a => path.join('js', `${a}.js`)),
-              css: ['all', 'tags'].filter(a => data['css'][a]).map(a => path.join('css', `${a}.css`)),
-              svg: data.svg
-            }
-          })),
+          intoStream.obj([
+            new File({
+              path: 'html/tag/tags.html',
+              contents: fs.readFileSync('src/layout/tags.hbs'),
+              data: {
+                title: 'Tags',
+                tags: data.tags,
+                js: ['all', 'tags'].filter(a => data['js'][a]).map(a => path.join('js', `${a}.js`)),
+                css: ['all', 'tags'].filter(a => data['css'][a]).map(a => path.join('css', `${a}.css`)),
+                svg: data.svg
+              }
+            }), new File({
+              path: '404.html',
+              contents: fs.readFileSync('src/layout/404.hbs'),
+              data: {
+                title: '404',
+                tags: [],
+                js: ['all', '404'].filter(a => data['js'][a]).map(a => path.join('js', `${a}.js`)),
+                css: ['all', '404'].filter(a => data['css'][a]).map(a => path.join('css', `${a}.css`)),
+                svg: data.svg
+              }
+            })
+          ]),
           ...data.tags.map(tag => {
             const filtered = files.filter(file => file.data.tags.some(item => item === tag))
             const total = Math.ceil(filtered.length / 4)
