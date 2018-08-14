@@ -6,6 +6,8 @@ const glob = require('glob')
 
 // Utilities
 const union = require('arr-union')
+const striptags = require('striptags')
+const Feed = require('feed').Feed
 
 // Gulp
 const gulp = require('gulp')
@@ -18,6 +20,7 @@ const rename = require('gulp-rename')
 const groupConcat = require('gulp-group-concat')
 const sort = require('gulp-sort')
 const windowed = require('gulp-windowed')
+const reduce = require('gulp-reduce-async')
 
 // Streams
 const through = require('through2')
@@ -229,8 +232,29 @@ const favicons = cb => favicon.generateFavicon({
   markupFile: 'favicon.json'
 }, cb)
 
-const html = () =>
-  gulp.src('src/post/*/post.md')
+const html = () => {
+  const feed = new Feed({
+    title: data.global.title,
+    description: data.global.author,
+    id: data.global.url,
+    link: data.global.url,
+    image: `${data.global.url}/img/icon.png`,
+    favicon: `${data.global.url}/favicon/favicon.ico`,
+    copyright: '2018 Tomer Aberbach',
+    feedLinks: {
+      json: `${data.global.url}/feed/feed.json`,
+      atom: `${data.global.url}/feed/rss.xml`
+    },
+    author: {
+      name: data.global.author,
+      email: data.global.email,
+      link: data.global.url
+    }
+  })
+
+  feed.addCategory('Technology')
+
+  return gulp.src('src/post/*/post.md')
     .pipe(matter())
     .pipe(through.obj((file, enc, cb) => {
       file.data.title = markdownit.renderInline(file.data.title)
@@ -260,6 +284,41 @@ const html = () =>
       cb(null, file)
     }))
     .pipe(branch.obj(src => [
+      src.pipe(sort((a, b) => b.data.timestamp - a.data.timestamp))
+        .pipe(reduce((memo, content, file, cb) => {
+          const link = file.contents.toString().trim() === ''
+            ? Object.values(file.data.links)[0]
+            : `${data.global.url}/html/post/${file.data.id}.html`
+
+          feed.addItem({
+            title: striptags(file.data.title),
+            id: file.data.id,
+            link,
+            description: striptags(file.data.description),
+            author: [{
+              name: data.global.author,
+              email: data.global.email,
+              link: data.global.url
+            }],
+            date: file.data.timestamp,
+            image: `${data.global.url}/img/${file.data.img}`
+          })
+
+          cb(null, '')
+        }, '')).pipe(through.obj(function (file, enc, cb) {
+          this.push(new File({
+            path: 'rss.xml',
+            contents: Buffer.from(feed.rss2())
+          }))
+
+          this.push(new File({
+            path: 'feed.json',
+            contents: Buffer.from(feed.json1())
+          }))
+
+          cb()
+        })).pipe(gulp.dest('dist/feed'))
+        .pipe(through.obj((file, enc, cb) => cb())),
       src.pipe(through.obj((file, enc, cb) => cb(null, file.clone({deep: true}))))
         .pipe(filter(file => file.contents.toString().trim() !== ''))
         .pipe(markdown({
@@ -402,6 +461,7 @@ const html = () =>
       collapseWhitespace: true
     }))
     .pipe(gulp.dest('dist'))
+}
 
 gulp.task('clean', clean)
 gulp.task('default', gulp.series(clean, favicons, gulp.parallel(gulp.series(gulp.parallel(global, js, css, img, svg), html), other)))

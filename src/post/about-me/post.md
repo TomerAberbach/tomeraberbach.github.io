@@ -12,4 +12,6 @@ links:
   linkedin: https://www.linkedin.com/in/tomer-a
   stackoverflow: https://stackoverflow.com/users/story/5195839
   redbubble: https://www.redbubble.com/people/tomeraberbach
+  rss: https://tomeraberba.ch/feed/rss.xml
+  json: https://tomeraberba.ch/feed/feed.json
 ---
