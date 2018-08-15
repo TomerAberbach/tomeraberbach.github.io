@@ -30,9 +30,15 @@
         <meta property="og:description" content="{{sanitize description}}"/>
         <meta property="og:site_name" content="{{sanitize title}} | {{sanitize subtitle}}"/>
 
-        {{#each css}}
-            <link rel="stylesheet" href="{{relative @file.relative this}}"/>
-        {{/each}}
+        {{#eq @file.relative '404.html'}}
+            {{#each css}}
+                <link rel="stylesheet" href="/{{this}}"/>
+            {{/each}}
+        {{else}}
+            {{#each css}}
+                <link rel="stylesheet" href="{{relative @file.relative this}}"/>
+            {{/each}}
+        {{/eq}}
     </head>
     <body>
         <header id="site-header">
@@ -67,7 +73,7 @@
         </footer>
 
         {{#each js}}
-            <script type="text/javascript" src="{{relative @file.relative this}}"></script>
+            <script src="{{relative @file.relative this}}"></script>
         {{/each}}
     </body>
 </html>
