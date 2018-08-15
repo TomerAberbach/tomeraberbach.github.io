@@ -337,7 +337,7 @@ const html = () => {
                   link: data.global.url
                 }],
                 date: file.data.timestamp,
-                image: `${data.global.url}/img/${file.data.img}`
+                image: `${data.global.url}/img/post/${file.data.img}`
               })
 
               cb(null, '')
