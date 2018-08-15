@@ -285,41 +285,6 @@ const html = () => {
       cb(null, file)
     }))
     .pipe(branch.obj(src => [
-      src.pipe(sort((a, b) => b.data.timestamp - a.data.timestamp))
-        .pipe(reduce((memo, content, file, cb) => {
-          const link = file.contents.toString().trim() === ''
-            ? Object.values(file.data.links)[0]
-            : `${data.global.url}/html/post/${file.data.id}.html`
-
-          feed.addItem({
-            title: striptags(file.data.title),
-            id: file.data.id,
-            link,
-            description: striptags(file.data.description),
-            author: [{
-              name: data.global.author,
-              email: data.global.email,
-              link: data.global.url
-            }],
-            date: file.data.timestamp,
-            image: `${data.global.url}/img/${file.data.img}`
-          })
-
-          cb(null, '')
-        }, '')).pipe(through.obj(function (file, enc, cb) {
-          this.push(new File({
-            path: 'rss.xml',
-            contents: Buffer.from(feed.rss2())
-          }))
-
-          this.push(new File({
-            path: 'feed.json',
-            contents: Buffer.from(feed.json1())
-          }))
-
-          cb()
-        })).pipe(gulp.dest('dist/feed'))
-        .pipe(through.obj((file, enc, cb) => cb())),
       src.pipe(through.obj((file, enc, cb) => cb(null, file.clone({deep: true}))))
         .pipe(filter(file => file.contents.toString().trim() !== ''))
         .pipe(markdown({
@@ -337,23 +302,59 @@ const html = () => {
             {plugin: markdownlink, options: {attrs: {target: '_blank', rel: 'noopener'}}}
           ]
         }))
-        .pipe(rename(p => {
-          p.basename = path.basename(p.dirname)
-          p.dirname = 'html/post'
-          p.extname = '.html'
-        }))
-        .pipe(through.obj((file, enc, cb) => {
-          ['js', 'css'].forEach(ext => {
-            file.data[ext] = ['all', 'post', file.basename]
-              .filter(a => data[ext][a])
-              .map(a => path.join(ext, `${a}.${ext}`))
-          })
+        .pipe(branch.obj(src => [
+          src.pipe(rename(p => {
+            p.basename = path.basename(p.dirname)
+            p.dirname = 'html/post'
+            p.extname = '.html'
+          })).pipe(through.obj((file, enc, cb) => {
+            ['js', 'css'].forEach(ext => {
+              file.data[ext] = ['all', 'post', file.basename]
+                .filter(a => data[ext][a])
+                .map(a => path.join(ext, `${a}.${ext}`))
+            })
 
-          file.data.content = file.contents.toString()
-          file.contents = fs.readFileSync('src/layout/post.hbs')
+            file.data.content = file.contents.toString()
+            file.contents = fs.readFileSync('src/layout/post.hbs')
 
-          cb(null, file)
-        })),
+            cb(null, file)
+          })),
+          src.pipe(sort((a, b) => b.data.timestamp - a.data.timestamp))
+            .pipe(reduce((memo, content, file, cb) => {
+              const link = file.contents.toString().trim() === ''
+                ? Object.values(file.data.links)[0]
+                : `${data.global.url}/html/post/${file.data.id}.html`
+
+              feed.addItem({
+                title: striptags(file.data.title),
+                id: file.data.id,
+                link,
+                description: striptags(file.data.description),
+                content: file.contents.toString(),
+                author: [{
+                  name: data.global.author,
+                  email: data.global.email,
+                  link: data.global.url
+                }],
+                date: file.data.timestamp,
+                image: `${data.global.url}/img/${file.data.img}`
+              })
+
+              cb(null, '')
+            }, '')).pipe(through.obj(function (file, enc, cb) {
+              this.push(new File({
+                path: 'rss.xml',
+                contents: Buffer.from(feed.rss2())
+              }))
+
+              this.push(new File({
+                path: 'feed.json',
+                contents: Buffer.from(feed.json1())
+              }))
+
+              cb()
+            })).pipe(gulp.dest('dist/feed')).pipe(through.obj((file, enc, cb) => cb()))
+        ])),
       src.pipe(sort((a, b) => b.data.timestamp - a.data.timestamp))
         .pipe(windowed.array(4, (files, i) => {
           const out = []

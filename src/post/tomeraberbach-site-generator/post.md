@@ -16,6 +16,7 @@ tags:
 - gulp
 - portfolio
 - git
+- rss
 links:
   github: https://github.com/TomerAberbach/tomeraberbach.github.io
   website: https://tomeraberba.ch
