@@ -64,7 +64,7 @@
             <div>
                 <div id="tags-div"><a href="{{relative @file.relative 'html/tag/tags.html'}}">Tags</a></div>
                 <a href="{{relative @file.relative 'index.html'}}">
-                    <img src="{{relative @file.relative 'img/icon.png'}}"/>
+                    <img src="{{#eq @file.relative '404.html'}}/img/icon.png{{else}}{{relative @file.relative 'img/icon.png'}}{{/eq}}"/>
                 </a>
                 <div {{#lte total 0}}style="visibility: hidden;"{{/lte}}>Page {{add i 1}} of {{total}}</div>
             </div>
@@ -72,8 +72,14 @@
             <span id="older-span" {{#gte i (minus total 1)}}style="visibility: hidden;"{{/gte}}><a href="{{relative @file.relative page}}/{{add i 2}}.html">Older</a></span>
         </footer>
 
-        {{#each js}}
-            <script src="{{relative @file.relative this}}"></script>
-        {{/each}}
+        {{#eq @file.relative '404.html'}}
+            {{#each js}}
+                <script src="/{{this}}"></script>
+            {{/each}}
+        {{else}}
+            {{#each js}}
+                <script src="{{relative @file.relative this}}"></script>
+            {{/each}}
+        {{/eq}}
     </body>
 </html>
