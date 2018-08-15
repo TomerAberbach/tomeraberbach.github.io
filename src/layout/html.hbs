@@ -30,6 +30,8 @@
         <meta property="og:description" content="{{sanitize description}}"/>
         <meta property="og:site_name" content="{{sanitize title}} | {{sanitize subtitle}}"/>
 
+        {{{favicon}}}
+
         {{#eq @file.relative '404.html'}}
             {{#each css}}
                 <link rel="stylesheet" href="/{{this}}"/>

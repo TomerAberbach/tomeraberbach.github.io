@@ -66,7 +66,14 @@ const markdownit = require('markdown-it')({html: true, typographer: true})
   .use(markdownanchor, {permalink: true})
   .use(markdownhighlight, {auto: false})
   .use(markdownvideo, {youtube: {width: 640, height: 390}})
-  .use(markdownlink, {attrs: {target: '_blank', rel: 'noopener'}})
+  .use(markdownlink, {
+    pattern: /^https?:\/\//,
+    attrs: {
+      class: 'external-a',
+      target: '_blank',
+      rel: 'noopener'
+    }
+  })
 
 // CSS
 const postcss = require('gulp-postcss')
@@ -129,6 +136,9 @@ const img = () =>
         file => file.extname !== '.gif' && file.extname !== '.svg',
         through.obj((file, enc, cb) =>
           jimp.read(file.contents).then(img => {
+            const max = Math.max(img.bitmap.width, img.bitmap.height)
+            img.rgba(false).background(0xFFFFFFFF).contain(max, max)
+
             if (img.bitmap.width > 500 && img.bitmap.height > 500) {
               img.scaleToFit(500, 500, jimp.RESIZE_BILINEAR)
             }
@@ -299,7 +309,16 @@ const html = () => {
             {plugin: markdownanchor, options: {permalink: true}},
             {plugin: markdownhighlight, options: {auto: false}},
             {plugin: markdownvideo, options: {youtube: {width: 640, height: 390}}},
-            {plugin: markdownlink, options: {attrs: {target: '_blank', rel: 'noopener'}}}
+            {plugin: markdownlink,
+              options: {
+                pattern: /^https?:\/\//,
+                attrs: {
+                  class: 'external-a',
+                  target: '_blank',
+                  rel: 'noopener'
+                }
+              }
+            }
           ]
         }))
         .pipe(branch.obj(src => [
@@ -463,17 +482,14 @@ const html = () => {
       file.data.i = file.data.i || 0
       file.data.total = file.data.total || 0
       file.data.page = file.data.page || ''
+      file.data.favicon = JSON.parse(fs.readFileSync('./favicon.json')).favicon.html_code
       file.data.content = file.contents.toString()
 
       file.contents = fs.readFileSync('src/layout/html.hbs')
       cb(null, file)
     }))
     .pipe(hb().helpers(hbhelpers))
-    .pipe(favicon.injectFaviconMarkups(JSON.parse(fs.readFileSync('./favicon.json')).favicon.html_code))
-    .pipe(htmlmin({
-      collapseBooleanAttributes: true,
-      collapseWhitespace: true
-    }))
+    .pipe(htmlmin({collapseBooleanAttributes: true}))
     .pipe(gulp.dest('dist'))
 }
 

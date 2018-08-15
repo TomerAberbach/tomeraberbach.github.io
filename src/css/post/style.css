@@ -53,12 +53,12 @@ main h1:first-child {
     margin-bottom: 0;
 }
 
-main p a, main p a:link, main p a:visited {
+main .external-a, main .external-a:link, main .external-a:visited {
     color: #F26430;
     transition: color ease-in-out 0.3s;
 }
 
-main p a:hover, main p a:link:hover, main p a:visited:hover {
+main .external-a:hover, main .external-a:link:hover, main .external-a:visited:hover {
     color: #FABC3C;
 }
 
