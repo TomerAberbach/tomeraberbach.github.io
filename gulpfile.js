@@ -445,7 +445,7 @@ const html = () => {
                   path: `html/tag/${tag}/${i + 1}.html`,
                   contents: fs.readFileSync('src/layout/page.hbs'),
                   data: {
-                    title: `${tag} Page ${i + 1}`,
+                    title: `${tag.substring(0, 1).toUpperCase()}${tag.substring(1)} Page ${i + 1}`,
                     tags: union([], ...files.map(file => file.data.tags)),
                     i,
                     total,
