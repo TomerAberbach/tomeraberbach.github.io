@@ -218,7 +218,7 @@ const favicons = cb => favicon.generateFavicon({
       pictureAspect: 'shadow',
       themeColor: '#ffffff',
       manifest: {
-        name: data.global.title,
+        name: data.global.title.split(' ').map((sub, i) => i === 0 ? sub : sub.substring(0, 1)).join(' '),
         display: 'standalone',
         orientation: 'notSet',
         onConflict: 'override',
