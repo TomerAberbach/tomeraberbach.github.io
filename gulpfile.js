@@ -1,6 +1,6 @@
 // File System
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const del = require('del')
 const glob = require('glob')
 
@@ -111,7 +111,7 @@ const data = {
 
 const global = done => {
   data.global = YAML.parse(fs.readFileSync('src/global.yaml').toString())
-  fs.writeFileSync('dist/CNAME', data.global.url.replace(/(^\w+:|^)\/\//, ''))
+  fs.outputFileSync('dist/CNAME', data.global.url.replace(/(^\w+:|^)\/\//, ''))
   done()
 }
 
@@ -218,6 +218,7 @@ const favicons = cb => favicon.generateFavicon({
       pictureAspect: 'shadow',
       themeColor: '#ffffff',
       manifest: {
+        name: data.global.title,
         display: 'standalone',
         orientation: 'notSet',
         onConflict: 'override',
@@ -494,4 +495,4 @@ const html = () => {
 }
 
 gulp.task('clean', clean)
-gulp.task('default', gulp.series(clean, favicons, gulp.parallel(gulp.series(gulp.parallel(global, js, css, img, svg), html), other)))
+gulp.task('default', gulp.series(clean, gulp.parallel(gulp.series(gulp.parallel(gulp.series(global, favicons), js, css, img, svg), html), other)))
