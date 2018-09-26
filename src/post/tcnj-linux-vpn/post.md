@@ -45,8 +45,13 @@ If at any point in this tutorial a command fails, install the recommended packag
    
    Note that the additional `openconnect` at the end of the path is intentional. It is the name of the executable in the `openconnect` directory.
 
-5. Move the file named `tcnj-vpn` to the directory `/usr/bin`. You may be unable to do this using the standard drag-and-drop GUI due to root privileges requirements. In that case run the following command:
-   ```shell
+5. Run the following command to ensure the file is executable:
+   ```sh
+   $ chmod u+x tcnj-vpn
+   ```
+
+6. Move the file named `tcnj-vpn` to the directory `/usr/bin`. You may be unable to do this using the standard drag-and-drop GUI due to root privileges requirements. In that case run the following command:
+   ```sh
    $ sudo mv tcnj-vpn /usr/bin
    ```
 
