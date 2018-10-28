@@ -39,9 +39,9 @@ If at any point in this tutorial a command fails, install the recommended packag
 4. Create a file named `tcnj-vpn` (no file extension) and write the following code to it using your favorite text editor:
    ```bash
    #!/bin/bash
-   sudo /path/to/where/you/installed/openconnect/openconnect --protocol=gp vpn-gw-ft.tcnj.edu --quiet --user=username
+   sudo /absolute/path/to/where/you/installed/openconnect/openconnect --protocol=gp vpn-gw-ft.tcnj.edu --quiet --user=username
    ```
-   `/path/to/where/you/installed/openconnect` should be replaced by the path to the directory where you installed OpenConnect (check using `pwd`) and `username` should be replaced by your TCNJ username.
+   `/absolute/path/to/where/you/installed/openconnect` should be replaced by the **absolute** path to the directory where you installed OpenConnect (check using `pwd`) and `username` should be replaced by your TCNJ username.
    
    Note that the additional `openconnect` at the end of the path is intentional. It is the name of the executable in the `openconnect` directory.
 
