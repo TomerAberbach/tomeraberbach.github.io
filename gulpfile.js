@@ -59,13 +59,13 @@ const markdownhighlight = require('markdown-it-highlightjs')
 const markdownvideo = require('markdown-it-video')
 const markdownlink = require('markdown-it-link-attributes')
 
-const markdownit = require('markdown-it')({html: true, typographer: true})
+const markdownit = require('markdown-it')({ html: true, typographer: true })
   .use(markdownsup)
   .use(markdownsub)
   .use(markdownkbd)
-  .use(markdownanchor, {permalink: true})
-  .use(markdownhighlight, {auto: false})
-  .use(markdownvideo, {youtube: {width: 640, height: 390}})
+  .use(markdownanchor, { permalink: true })
+  .use(markdownhighlight, { auto: false })
+  .use(markdownvideo, { youtube: { width: 640, height: 390 } })
   .use(markdownlink, {
     pattern: /^https?:\/\//,
     attrs: {
@@ -94,7 +94,7 @@ const hbhelpers = require('handlebars-helpers')
 
 // YAML
 const matter = require('gulp-gray-matter')
-const YAML = require('yaml').default
+const YAML = require('yaml')
 
 /*
  * TASKS
@@ -117,7 +117,7 @@ const global = done => {
 
 const svg = () =>
   gulp.src('src/svg/*')
-    .pipe(imagemin([imagemin.svgo({plugins: [{removeTitle: false}]})]))
+    .pipe(imagemin([imagemin.svgo({ plugins: [{ removeTitle: false }] })]))
     .pipe(through.obj((file, enc, cb) => {
       data.svg[file.basename.substring(0, file.basename.length - file.extname.length)] = file.contents.toString()
       cb()
@@ -154,7 +154,7 @@ const img = () =>
     imagemin.gifsicle(),
     imagemin.jpegtran(),
     imagemin.optipng(),
-    imagemin.svgo({plugins: [{removeTitle: false}]})
+    imagemin.svgo({ plugins: [{ removeTitle: false }] })
   ])).pipe(gulp.dest('dist/img'))
 
 const included = (ext, optimize) => () =>
@@ -167,11 +167,11 @@ const included = (ext, optimize) => () =>
       })),
     gulp.src(`src/${ext}/**/*.${ext}`)
       .pipe(groupConcat({
-        '404': `src/${ext}/404/*.${ext}`,
-        'page': `src/${ext}/page/*.${ext}`,
-        'post': `src/${ext}/post/*.${ext}`,
-        'tags': `src/${ext}/tags/*.${ext}`,
-        'all': `src/${ext}/*.${ext}`
+        404: `src/${ext}/404/*.${ext}`,
+        page: `src/${ext}/page/*.${ext}`,
+        post: `src/${ext}/post/*.${ext}`,
+        tags: `src/${ext}/tags/*.${ext}`,
+        all: `src/${ext}/*.${ext}`
       }))
       .pipe(rename(p => {
         p.extname = `.${ext}`
@@ -296,7 +296,7 @@ const html = () => {
       cb(null, file)
     }))
     .pipe(branch.obj(src => [
-      src.pipe(through.obj((file, enc, cb) => cb(null, file.clone({deep: true}))))
+      src.pipe(through.obj((file, enc, cb) => cb(null, file.clone({ deep: true }))))
         .pipe(filter(file => file.contents.toString().trim() !== ''))
         .pipe(markdown({
           options: {
@@ -307,10 +307,10 @@ const html = () => {
             markdownsup,
             markdownsub,
             markdownkbd,
-            {plugin: markdownanchor, options: {permalink: true}},
-            {plugin: markdownhighlight, options: {auto: false}},
-            {plugin: markdownvideo, options: {youtube: {width: 640, height: 390}}},
-            {plugin: markdownlink,
+            { plugin: markdownanchor, options: { permalink: true } },
+            { plugin: markdownhighlight, options: { auto: false } },
+            { plugin: markdownvideo, options: { youtube: { width: 640, height: 390 } } },
+            { plugin: markdownlink,
               options: {
                 pattern: /^https?:\/\//,
                 attrs: {
@@ -404,14 +404,14 @@ const html = () => {
                 .map(a => path.join(ext, `${a}.${ext}`))
             })
 
-            return new File({path: p, contents, data: fileData})
+            return new File({ path: p, contents, data: fileData })
           })
         })),
       src.pipe(buffer(files => {
         data.tags = Object.keys(data.tags).sort((a, b) => a.localeCompare(b))
 
         return merge(
-          intoStream.obj([
+          intoStream.object([
             new File({
               path: 'html/tag/tags.html',
               contents: fs.readFileSync('src/layout/tags.hbs'),
@@ -438,7 +438,7 @@ const html = () => {
             const filtered = files.filter(file => file.data.tags.some(item => item === tag))
             const total = Math.ceil(filtered.length / 4)
 
-            return intoStream.obj(filtered)
+            return intoStream.object(filtered)
               .pipe(sort((a, b) => b.data.timestamp - a.data.timestamp))
               .pipe(windowed.array(4, (files, i) => {
                 const file = new File({
@@ -490,7 +490,7 @@ const html = () => {
       cb(null, file)
     }))
     .pipe(hb().helpers(hbhelpers))
-    .pipe(htmlmin({collapseBooleanAttributes: true}))
+    .pipe(htmlmin({ collapseBooleanAttributes: true }))
     .pipe(gulp.dest('dist'))
 }
 
