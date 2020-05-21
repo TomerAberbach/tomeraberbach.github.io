@@ -252,7 +252,7 @@ const html = () => {
     link: data.global.url,
     image: `${data.global.url}/img/icon.png`,
     favicon: `${data.global.url}/favicon/favicon.ico`,
-    copyright: '2018 Tomer Aberbach',
+    copyright: '2020 Tomer Aberbach',
     feedLinks: {
       json: `${data.global.url}/feed/feed.json`,
       atom: `${data.global.url}/feed/rss.xml`
